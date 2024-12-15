@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>en-naim</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .image {
+            width: 90px;
+            height: 110px;
+            margin: 140px 0 0 0;
+        }
+
+        /* Section Styling */
+        section {
+            margin: 0;
+            padding: 0;
+            margin-top: 0px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        }
+
+        /* Title Styling */
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #f2f3f3;
+            margin-bottom: 20px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 90%;
+            margin-left: 5%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-bottom: 50px;
+        }
+
+        th, td {
+            padding: 30px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: linear-gradient(rgb(46, 45, 45), white);
+            color: rgb(26, 24, 24);
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        tr {
+            background-color: #f3f2f0; 
+            color: rgb(3, 3, 3);
+        }
+
+        td {
+            color: #000;
+            font-size: 15px;
+            background: linear-gradient(white, white, black);
+        }
+
+        td, th {
+            border: solid 2px black;
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 0 0px;
+            color: rgb(97, 75, 54); 
+            font-size: 15px; 
+            font-weight: 500; 
+            text-transform: uppercase; 
+            padding: 5px 10px; 
+            border-radius: 5px; 
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.1); 
+        }
+
+        /* Search Bar Styling */
+        .search-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .search-input {
+            width: 50%;
+            padding: 10px;
+            font-size: 26px;
+            border: 1px solid #cccccc80;
+            border-radius: 5px;
+            background-color: #f3f2f08f;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <img src="img/logo.png" alt="Logo">
+        </a>
+        <ul class="nav">
+            <li><a href="index.html" class="home">home</a></li>
+            <li><a href="events.html" class="events">events</a></li>
+            <li><a href="add-event.html" class="add-event">add-event</a></li>
+            <li><a href="stats.html" class="stats">stats</a></li>
+            <li><a href="contact.html" class="contact">contact</a></li>
+        </ul>
+    </header>
+
+    <section>
+        <img src="img/pngwing.com.png" alt="Événements culturels" class="image">
+        <h1>Liste des événements</h1>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search events...">
+        </div>
+
+        <!-- Events Table -->
+        <table id="eventsTable">
+            <thead>
+                <tr>
+                    <th>Nom de l'événement</th>
+                    <th>Date</th>
+                    <th>Lieu</th>
+                    <th>Type</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Université Chouaib Doukkali - Faculté des Sciences. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Function to update the events table
+        function updateEventTable() {
+            const table = document.getElementById("eventsTable").getElementsByTagName('tbody')[0];
+            table.innerHTML = ""; // Clear existing table rows
+
+            // Get events from localStorage
+            const events = JSON.parse(localStorage.getItem("events")) || [];
+
+            // Populate the table with events
+            events.forEach(event => {
+                const newRow = table.insertRow();
+                newRow.innerHTML = `
+                    <td>${event.name}</td>
+                    <td>${event.date}</td>
+                    <td>${event.location}</td>
+                    <td>${event.type}</td>
+                    <td>
+                        <a href="f-event.html?id=${event.id}" class="btn">View Details</a>
+                        <button class="btn" onclick="deleteEvent(this)">Delete</button>
+                    </td>
+                `;
+            });
+        }
+
+        // Function to delete an event
+        function deleteEvent(button) {
+            const row = button.closest("tr");
+            const eventName = row.cells[0].textContent;
+
+            // Get events from localStorage
+            let events = JSON.parse(localStorage.getItem("events")) || [];
+
+            // Remove the event from the array
+            events = events.filter(event => event.name !== eventName);
+
+            // Save the updated events array back to localStorage
+            localStorage.setItem("events", JSON.stringify(events));
+
+            // Update the table
+            updateEventTable();
+        }
+
+        // Function to filter events based on the search input
+        function searchEvents() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const rows = document.querySelectorAll("#eventsTable tbody tr");
+
+            rows.forEach(row => {
+                const eventName = row.cells[0].textContent.toLowerCase();
+                const eventLocation = row.cells[2].textContent.toLowerCase();
+                const eventType = row.cells[3].textContent.toLowerCase();
+
+                // Check if the search input matches any cell
+                if (eventName.includes(input) || eventLocation.includes(input) || eventType.includes(input)) {
+                    row.style.display = ""; // Show row
+                } else {
+                    row.style.display = "none"; // Hide row
+                }
+            });
+        }
+
+        // Attach the search function to the input field
+        document.getElementById("searchInput").addEventListener("input", searchEvents);
+
+        // Update the table with events when the page loads
+        window.onload = updateEventTable;
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>en-naim</title>
+    
+<link rel="stylesheet" href="style.css">
+<style>
+    body{
+        background-image: url(cf889965c8db4cace0467ba17cbab3f6.gif);
+    }
+</style>
+  
+
+</head>
+<body>
+    <header>
+       <a href="index.html" class="logo">
+            <img class="" src="img/logo.png" alt="">
+        </a>
+        <ul class="nav">
+           
+            <li> <a href="index.html" class="home">home</a></li>
+                <li><a href="events.html" class="events">events</a></li>
+                    <li><a href="add-event.html" class="add-event">add-event</a></li>
+                        <li><a href="stats.html" class="stats">stats</a></li>
+                            <li><a href="contact.html" class="contact">contact</a></li>
+</ul>
+
+
+        
+    </header>
+
+
+
+
+
+
+
+
+<div class="as">
+
+
+    <section>
+        <h1 id="haa"></h1>
+        <h1>Bienvenue sur le site de gestion des événements culturels !</h1>
+        <p>Notre site vous aide à gérer des événements culturels tels que des concerts, des expositions, des conférences, et plus encore.</p>
+        
+    </section>
+<img src="img/img1.png" alt="Événements culturels">
+    
+</div>
+<footer>
+    <p>&copy; 2024 Université Chouaib Doukkali - Faculté des Sciences. Tous droits réservés.</p>
+</footer>
+
+<script>
+    const now = new Date();
+const hour = now.getHours();
+
+let message = '';
+if (hour >= 5 && hour < 12) {
+    message = 'Bonjour !'; 
+} else if (hour >= 12 && hour < 18) {
+    message = 'Bonne après-midi !'; 
+} else {
+    message = 'Bonsoir !'; 
+}
+
+document.getElementById('haa').innerHTML = message;
+</script>
+
+
+
+</body>
+</html>

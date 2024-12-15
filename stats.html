@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>en-naim</title>
+    <script src="jsdelivr.js"></script>
+
+    
+<link rel="stylesheet" href="style.css">
+<style>
+    main {
+    max-width: 1000px;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Section for the chart */
+section {
+    margin-top: 5px;
+}
+
+section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+    text-align: center;
+    color: #f7f3f3;
+}
+</style>
+
+  
+
+</head>
+<body>
+    <header>
+       <a href="index.html" class="logo">
+            <img class="" src="img/logo.png" alt="">
+        </a>
+        <ul class="nav">
+           
+            <li> <a href="index.html" class="home">home</a></li>
+                <li><a href="events.html" class="events">events</a></li>
+                    <li><a href="add-event.html" class="add-event">add-event</a></li>
+                        <li><a href="stats.html" class="stats">stats</a></li>
+                            <li><a href="contact.html" class="contact">contact</a></li>
+</ul>
+
+
+        
+    </header>
+
+
+    <main>
+        <h1>Statistiques des Événements</h1>
+
+        <!-- Section pour le graphique -->
+        <section>
+            <h2>Répartition des Événements par Catégorie</h2>
+            <canvas id="eventChart" width="200" height="100"></canvas>
+        </section>
+    </main>
+
+
+
+<footer>
+    <p>&copy; 2024 Université Chouaib Doukkali - Faculté des Sciences. Tous droits réservés.</p>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Function to load events from localStorage
+    function loadEvents() {
+        return JSON.parse(localStorage.getItem("events")) || [];
+    }
+
+    // Function to calculate event statistics
+    function calculateEventStats(events) {
+        const stats = {};
+
+        events.forEach(event => {
+            if (stats[event.type]) {
+                stats[event.type]++;
+            } else {
+                stats[event.type] = 1;
+            }
+        });
+
+        return stats;
+    }
+
+    // Function to render the chart
+
+    function renderChart(stats) {
+    const ctx = document.getElementById('eventChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: Object.keys(stats), // Categories (e.g., Concert, Conférence)
+            datasets: [{
+                label: 'Nombre d’événements',
+                data: Object.values(stats), // Counts of each category
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1,
+                barThickness: 30 // التحكم بحجم الأعمدة (صغير)
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                },
+                tooltip: {
+                    enabled: true
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Nombre d’événements'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Catégories'
+                    }
+                }
+            }
+        }
+    });
+}
+
+    // Main function to load and display statistics
+    function displayEventStats() {
+        const events = loadEvents();
+        const stats = calculateEventStats(events);
+        renderChart(stats);
+    }
+
+    // Call the main function when the page loads
+    window.onload = displayEventStats;
+</script>
+
+
+</body>
+</html>

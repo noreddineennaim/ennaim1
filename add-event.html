@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>en-naim</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+
+        main {
+            max-width: 800px;  
+            margin: 100px auto;
+            padding: 3px;  
+            background: linear-gradient(rgba(0, 0, 0, 0.473),rgba(0, 0, 0, 0.342),rgba(255, 255, 255, 0.322));
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 20px;
+        }
+        
+        h2 {
+            text-align: center;
+            color: #f7fcfb;
+            font-size: 1.5rem;  /* تقليل حجم النص */
+            margin-bottom: 10px;  /* تقليل المسافة أسفل العنوان */
+        }
+        
+        /* Form Styles */
+        form {
+            display: grid;
+            gap: 20px;  /* تقليل المسافة بين الحقول */
+        }
+        
+        label {
+            font-weight: bold;
+            color: #fcfafa;
+        }
+        
+        input[type="text"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 3px;  /* تقليل الحشو داخل الحقول */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1.2rem;  /* تقليل حجم الخط */
+            box-sizing: border-box;
+        }
+        
+        
+        
+        /* Button Styles */
+        button {
+            padding: 6px 12px;  /* تقليل حجم الأزرار */
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+        }
+        
+        button[type="submit"] {
+            background: linear-gradient(black,white);
+            color: white;
+        }
+        
+        button[type="submit"]:hover {
+            background: linear-gradient(white,black);
+        
+        }
+        
+        button[type="reset"] {
+            background: linear-gradient(white,black);
+        
+            color: white;
+        }
+        
+        button[type="reset"]:hover {
+            background: linear-gradient(black,white);
+        
+        }
+        
+        
+        
+        
+        
+        </style>
+        
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <img class="" src="img/logo.png" alt="">
+        </a>
+        <ul class="nav">
+            <li> <a href="index.html" class="home">home</a></li>
+            <li><a href="events.html" class="events">events</a></li>
+            <li><a href="add-event.html" class="add-event">add-event</a></li>
+            <li><a href="stats.html" class="stats">stats</a></li>
+            <li><a href="contact.html" class="contact">contact</a></li>
+        </ul>
+    </header>
+
+    <main>
+        <h2>Ajouter un Événement</h2>
+        <form id="add-event-form">
+            <div>
+                <label for="nom1">Nom de l'Événement :</label>
+                <input type="text" id="nom1" name="event-name">
+            </div>
+            <div>
+                <label for="date1">Date :</label>
+                <input type="date" id="date1" name="event-date">
+            </div>
+            <div>
+                <label for="location1">Lieu :</label>
+                <input type="text" id="location1" name="event-location">
+            </div>
+            <div>
+                <label for="type1">Type :</label>
+                <select id="type1" name="event-type">
+                    <option value="concert">Concert</option>
+                    <option value="exposition">Exposition</option>
+                    <option value="conference">Conférence</option>
+                </select>
+            </div>
+            <div>
+                <label for="description1">Description :</label>
+                <textarea id="description" name="event-description" rows="5"></textarea>
+            </div>
+            <div>
+                <button type="submit" onclick="addEvent(event)">Ajouter</button>
+                <button type="reset">Réinitialiser</button>
+            </div>
+        </form>
+    </main>
+
+    
+    <footer>
+        <p>&copy; 2024 Université Chouaib Doukkali - Faculté des Sciences. Tous droits réservés.</p>
+    </footer>
+
+   <script>
+function addEvent(event) {
+    event.preventDefault(); 
+
+    let name = document.getElementById("nom1").value;
+    let date = document.getElementById("date1").value;
+    let location = document.getElementById("location1").value;
+    let type = document.getElementById("type1").value;
+    let description = document.getElementById("description").value;
+
+    if (name && date && location && type) {
+        const newEvent = {
+            id: Date.now(), 
+            name: name,
+            date: date,
+            location: location,
+            type: type,
+            description: description || "No description."
+        };
+
+        let events = JSON.parse(localStorage.getItem("events")) || [];
+
+        events.push(newEvent);
+
+        localStorage.setItem("events", JSON.stringify(events));
+
+        document.getElementById("nom1").value = "";
+        document.getElementById("date1").value = "";
+        document.getElementById("location1").value = "";
+        document.getElementById("type1").value = "";
+        document.getElementById("description").value = "";
+
+        
+    } else {
+        alert("Veuillez remplir tous les champs");
+    }
+}
+
+
+   </script>
+</body>
+</html>

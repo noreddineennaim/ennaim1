@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+background: rgb(17, 16, 16) url(cf889965c8db4cace0467ba17cbab3f6.gif);
+-webkit-text-size-adjust: 100%; /* ضبط حجم النص */
+-webkit-font-smoothing: antialiased; /* تحسين عرض الخطوط */
+}
+
+header{
+    position: fixed;
+
+    width: 100%;
+    height: 90px;
+    top: 0;
+    right: 0;
+    padding: 30px 2% 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(rgba(15, 8, 8, 0.315),rgba(138, 136, 136, 0.589),rgb(246, 247, 241) ,white,rgba(255, 255, 255, 0.795),rgba(255, 255, 255, 0.582));
+    box-shadow: 0 10px 15px rgba(248, 247, 247, 0.925);
+}
+.logo img{
+    margin-top: 10px;
+    width: 150px;
+    height: auto;
+}
+.logo{
+    left: 0;
+}
+
+.nav{
+    top: 0;
+    list-style: none;
+    display: flex;
+}
+.nav a{
+    display: inline-block;
+    margin: 0 0px;
+    color: aliceblue;
+    list-style: none;
+
+}
+
+/*      a        */
+.nav a {
+    text-decoration: none; /* Remove underline from links */
+    color: rgb(97, 75, 54); /* White text color by default */
+    font-size: 25px; /* Adjust font size */
+    font-weight: 500; /* Make the text bold */
+    text-transform: uppercase; /* Uppercase text for a clean look */
+    padding: 10px 15px; /* Add some padding for clickable area */
+    border-radius: 3px; /* Rounded corners */
+}
+
+/* Hover Effect */
+.nav a:hover {
+
+    color: rgb(7, 7, 7); /* Keep text color white on hover */
+    transform: scale(1.1); /* Slightly increase size on hover for effect */
+    margin-top: 4px;
+}
+
+.nav a.active {
+    background-color: #ececec; 
+    color: white;
+    font-weight: bold; 
+}
+
+.nav a:focus {
+    outline: 3px solid #f8f8f7; 
+    background-color: #13131234; 
+}
+
+.as{
+    display: flex;
+    margin-left: 10px;
+    margin-top: 100px;
+}
+section {
+    padding: 40px; 
+    text-align: center; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    margin: 20px; 
+}
+
+h1 {
+    
+    font-size: 2.5em; /* حجم الخط العنوان */
+    color: #dcdddd; /* اللون الداكن */
+    margin-bottom: 20px; /* مساحة أسفل العنوان */
+}
+
+p {
+    font-size: 1em; /* حجم الخط للنص */
+    color: #e9edf1; /* لون النص */
+    margin-bottom: 20px; /* مسافة بين الفقرة والصورة */
+    line-height: 1.6; /* تباعد الأسطر لتحسين القراءة */
+}
+
+.as img {
+    width: 350px; /* ضبط الصورة لتملأ العرض */
+    height: 450px; /* الحفاظ على النسبة الأصلية للصورة */
+    border-radius: 8px; /* حواف مستديرة للصورة */
+    
+}
+
+
+
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 8px;  /* تقليل الحشو في الفوتر */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 1rem;  /* تقليل حجم الخط */
+}
+footer p {
+    margin: 0;
+}

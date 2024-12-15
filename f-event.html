@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      /* تصميم الحاوية الرئيسية */
+.event-container {
+    max-width: 900px;
+    margin: 150px auto;
+    padding: 20px;
+    background-color: #ffffff59;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+/* عنوان التفاصيل */
+.event-title {
+    text-align: center;
+    font-size: 3rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-weight: bold;
+    border-bottom: 4px solid #fcfbfb;
+    padding-bottom: 10px;
+}
+
+/* تفاصيل الحدث */
+.event-details {
+    font-size: 2.1rem;
+    margin-left: 50px;
+    line-height: 1.6;
+    color: #eceff1;
+}
+
+.event-details p {
+    margin-bottom: 15px;
+}
+
+.event-details p strong {
+    margin-right: 50px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <img src="img/logo.png" alt="Logo">
+        </a>
+        <ul class="nav">
+            <li><a href="index.html" class="home">Home</a></li>
+            <li><a href="events.html" class="events">Events</a></li>
+            <li><a href="add-event.html" class="add-event">Add Event</a></li>
+            <li><a href="stats.html" class="stats">Stats</a></li>
+            <li><a href="contact.html" class="contact">Contact</a></li>
+        </ul>
+    </header>
+
+   
+    <main>
+        <div class="event-container">
+            <h2 class="event-title">Event Details</h2>
+            <div id="eventInfo" class="event-details">
+                <!-- Event details will be populated here -->
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Université Chouaib Doukkali - Faculté des Sciences. Tous droits réservés.</p>
+    </footer>
+<script>
+    // Function to display event details
+function displayEventDetails() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const eventId = urlParams.get('id');
+
+    // Get events from localStorage
+    const events = JSON.parse(localStorage.getItem("events")) || [];
+    const event = events.find(e => e.id == eventId); // Compare as numbers or strings based on storage
+
+    if (event) {
+        document.getElementById('eventInfo').innerHTML = `
+              <p><strong>Nom :→</strong>	 ${event.name}</p>
+    <p><strong>Date :→</strong>	   ${event.date}</p>
+    <p><strong>Lieu :→</strong>	   ${event.location}</p>
+    <p><strong>Type :→	</strong>   ${event.type}</p>
+    <p><strong>Description :→</strong>---->${event.description || 'Aucune description disponible.'}</p>
+        `;
+    } else {
+        document.getElementById('eventInfo').innerHTML = `<p>Event not found!</p>`;
+    }
+}
+
+// Execute when the page loads
+window.onload = displayEventDetails;
+
+</script>
+</body>
+</html>
